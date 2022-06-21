@@ -1,5 +1,5 @@
 const two = () => {
-  const enterTwo = 'Two';
+  const enterTwo = 'Two1';
 
   console.log(enterTwo);
 };
