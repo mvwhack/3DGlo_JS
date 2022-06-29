@@ -29,7 +29,6 @@ const timer = (deadline) => {
   };
   const chekTime = () => {
     let time = getTimeRemaining(deadline);
-    console.log(time.timeRemaining);
     if (time.timeRemaining > 0) {
       setInterval(updateClock, 1000);
     }
