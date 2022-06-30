@@ -1,12 +1,18 @@
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
-  const modalClose = modal.querySelector('.popup-close');
   const modalContent = modal.querySelector('.popup-content');
 
   let top = 25;
   let modalPosition;
   let idAnimation;
+
+  modal.addEventListener('click', (e) => {
+    if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+      modal.style.display = 'none';
+      modalContent.style.top = '';
+    }
+  });
 
   const moveModal = () => {
     modalPosition += 3;
@@ -33,12 +39,6 @@ const modal = () => {
 
     });
   });
-
-  modalClose.addEventListener('click', () => {
-    modalContent.style.top = '';
-    modal.style.display = 'none';
-  });
-
 };
 
 export default modal;
