@@ -10,6 +10,7 @@ const slider = () => {
       dot.classList.add('dot');
       dotsBlock.append(dot);
     }
+    dotsBlock.querySelector('.portfolio-dots > .dot').classList.add('dot-active');
   };
 
   let currentSlide = 0;
