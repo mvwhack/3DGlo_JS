@@ -1,46 +1,37 @@
 const validate = () => {
 
-  const calcBlock = document.querySelector('.calc-block');
-  const calcInput = calcBlock.querySelectorAll('input');
-  const formEmail = document.querySelectorAll('.form-email');
-  const formPhone = document.querySelectorAll('.form-phone');
-  const formName = document.querySelectorAll('[name="user_name"]');
-  const massege = document.querySelectorAll('[name="user_message"]');
+  const priceInputs = document.querySelectorAll('div.calc-block>input');
+  const nameInput = document.querySelectorAll('input[name=user_name]');
+  const emailInput = document.querySelectorAll('input[name=user_email]');
+  const phoneInput = document.querySelectorAll('input[name=user_phone]');
+  const messInput = document.querySelector('input[name=user_message]');
 
-  //Калькулятор
-  calcInput.forEach(input => {
-    input.addEventListener('input', () => {
-      input.value = input.value.replace(/\D/g, '');
-    });
+  const valid = (element, reg, testReg) => [
+    element.forEach(input => {
+      input.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(reg, "");
+        if ((e.target.value === '')) {
+          e.target.classList.remove('success');
+        } else if (testReg.test(e.target.value)) {
+          e.target.classList.add('success');
+        }
+      });
+    })
+  ];
+
+  messInput.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[^а-яА-Я\s\-]+/, "");
+    if (e.target.value === '') {
+      e.target.classList.remove('success');
+    } else {
+      e.target.classList.add('success');
+    }
   });
 
-  //Проверка Email
-  formEmail.forEach(email => {
-    email.addEventListener('input', () => {
-      email.value = email.value.replace(/[^\@\-\.\!\~\*\'\w]+/gi, '');
-    });
-  });
-
-  //Проверка телефона
-  formPhone.forEach(phone => {
-    phone.addEventListener('input', () => {
-      phone.value = phone.value.replace(/[^\(\)\-\d]+/gi, '');
-    });
-  });
-
-  //Проверка имени
-  formName.forEach(name => {
-    name.addEventListener('input', () => {
-      name.value = name.value.replace(/[^А-Яа-я\s\-]+/gi, '');
-    });
-  });
-
-  //Проверка текста сообщения
-  massege.forEach(text => {
-    text.addEventListener('input', () => {
-      text.value = text.value.replace(/[^А-Яа-я\s\-]+/gi, '');
-    });
-  });
+  valid(priceInputs, /\D+/, /\d+/g);
+  valid(nameInput, /[^а-яА-Я\s\-]+/, /[а-яА-Я\s\-]{2,}/gi);
+  valid(emailInput, /[^\@\-\.\!\~\*\'\w]+/, /[\-\.\!\~\*\'\w]+@([\w]+\.)+[\w]+/gi);
+  valid(phoneInput, /[^\0-9\-\+\(\)]/, /^\d{11,12}$/);
 
 };
 
